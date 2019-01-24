@@ -1,0 +1,97 @@
+$indent: 1.5rem;
+$head-bg-color: white;
+
+.indent {
+  margin-left: $indent;
+}
+
+.node {
+  .chevron {
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Safari 3.1+ */
+    -moz-user-select: none;
+    /* Firefox 2+ */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+
+    &:before {
+      content: "\25B6";
+      display: inline-block;
+      margin-right: 1rem;
+    }
+  }
+
+  @mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+  }
+
+  .chevron-down {
+    &::before {
+      @include transform(rotate(90deg));
+    }
+  }
+
+  .head {
+    border-bottom: 1px solid #dee2e6;
+    overflow: hidden;
+    display: flex;
+
+    &:hover {
+      background-color: darken($head-bg-color, $amount: 5)
+    }
+
+    .fields-container {
+      display: flex;
+      margin-left: auto;
+
+      .field {
+        padding: 0 .3rem 0 .3rem;
+        border-left: 1px solid #dee2e6;
+        width: 7rem;
+        text-align: right;
+      }
+    }
+  }
+
+  .body {
+    display: none;
+    padding-inline-start: $indent;
+
+    &.open {
+      display: block;
+    }
+  }
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.search {
+  position: relative;
+
+  .search-ico {
+    position: absolute;
+    left: 1rem;
+    top: 0.75rem;
+  }
+
+  .found-matches {
+    position: absolute;
+    right: 1rem;
+    top: 0.75rem;
+  }
+
+  input {
+    text-indent: 2rem;
+  }
+
+  input:focus+.fas {
+    color: #007bff;
+  }
+
+}
