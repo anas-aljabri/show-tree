@@ -23,6 +23,13 @@ $head-bg-color: white;
     }
   }
 
+  .no-children
+  {
+    &:before {
+      visibility: hidden;
+    }
+  }
+
   @mixin transform($property) {
     -webkit-transform: $property;
     -ms-transform: $property;
