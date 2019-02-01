@@ -8,11 +8,13 @@ showTree('rootContainer', data.default as Node[]);
 
 function showTree(treeContainerId: string, tree: Node[]) {
     let rootContainer = document.getElementById('treeContainer');
+    rootContainer.classList.add("show-tree-container");
 
     //  Add the input filed
     //#region 
     let searchInpt = document.createElement("INPUT") as HTMLInputElement;
     searchInpt.type = "text";
+    searchInpt.classList.add("search");
     searchInpt.addEventListener("input", debounce((event: Event) => {
         let keyword = (event.srcElement as HTMLInputElement).value;
 
@@ -29,13 +31,18 @@ function showTree(treeContainerId: string, tree: Node[]) {
     rootContainer.appendChild(searchInpt);
     //#endregion
 
+    //  Creating the tre container
+    //#region 
     let treeContainer = document.createElement("DIV");
     treeContainer.classList.add("tree-container");
     rootContainer.appendChild(treeContainer);
+    //#endregion
 
-    //  Create the tree in the dom here
+    //  Create the tree
+    //#region 
     showNodes(tree, treeContainer);
 
+    //  Recursive function
     function showNodes(nodes: Node[], container: HTMLElement) {
         for (let node of nodes) {
             //  Create the node div
@@ -47,6 +54,10 @@ function showTree(treeContainerId: string, tree: Node[]) {
             let headDiv = document.createElement("div");
             headDiv.classList.add("head");
             headDiv.classList.add("chevron");
+            if(node.KeywordMatch)
+            {
+                headDiv.classList.add("keyword-match");
+            }
             //  Show chevron only if node has children
             if (node.Children) {
                 headDiv.classList.add("clickable");
@@ -80,7 +91,7 @@ function showTree(treeContainerId: string, tree: Node[]) {
             }
         }
     }
-
+    //#endregion
 }
 
 function filterTree(tree: Node[], keyword: string): FilterTreeResult {

@@ -1,6 +1,8 @@
 $indent: 1.5rem;
 $head-bg-color: white;
 
+.show-tree-container
+{
 .indent {
   margin-left: $indent;
 }
@@ -42,6 +44,10 @@ $head-bg-color: white;
     }
   }
 
+  .keyword-match {
+    font-weight: bold;
+  }
+
   .head {
     border-bottom: 1px solid #dee2e6;
     overflow: hidden;
@@ -81,6 +87,24 @@ $head-bg-color: white;
 .search {
   position: relative;
 
+    display: block;
+    width: 100%;
+    // height: calc(2.25rem + 2px);
+    // padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+    &:focus {
+      box-shadow: 0px 0px 4px blue, 0px 0px 4px blue inset !important;
+      outline: 0 none;
+    } 
+
   .search-ico {
     position: absolute;
     left: 1rem;
@@ -100,5 +124,5 @@ $head-bg-color: white;
   input:focus+.fas {
     color: #007bff;
   }
-
+}
 }
