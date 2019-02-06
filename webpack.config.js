@@ -1,7 +1,32 @@
+// [
+//   new UglifyJsPlugin({
+//     uglifyOptions: {
+//       ie8: false,
+//       ecma: 8,
+//       parse: {...options},
+//       mangle: {
+//         ...options,
+//         properties: {
+//           // mangle property options
+//         }
+//       },
+//       output: {
+//         comments: false,
+//         beautify: false,
+//         ...options
+//       },
+//       compress: {...options},
+//       warnings: false
+//     }
+//   })
+// ]
+
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/lib/index.ts",
   output: {
-    filename: "bundle.js"
+    filename: "show-tree.js",
+    library: 'showTree',
+    // libraryTarget: 'var'
   },
   // resolve: {
   //   // Add '.ts' and '.tsx' as a resolvable extension.
