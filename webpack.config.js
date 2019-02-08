@@ -1,26 +1,3 @@
-// [
-//   new UglifyJsPlugin({
-//     uglifyOptions: {
-//       ie8: false,
-//       ecma: 8,
-//       parse: {...options},
-//       mangle: {
-//         ...options,
-//         properties: {
-//           // mangle property options
-//         }
-//       },
-//       output: {
-//         comments: false,
-//         beautify: false,
-//         ...options
-//       },
-//       compress: {...options},
-//       warnings: false
-//     }
-//   })
-// ]
-
 module.exports = {
   entry: "./src/lib/index.ts",
   output: {

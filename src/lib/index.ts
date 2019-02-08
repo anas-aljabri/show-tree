@@ -4,7 +4,7 @@ import './styles/styles.scss';
 import { FilterTreeResult } from './filter-tree-result';
 
 
-export function start(treeContainerId: string, tree: Node[], config: ShowTreeConfig = 
+export function start(treeContainerId: string, tree: Node[], config: ShowTreeConfig =
     {
         "searchDebounceTime": 0,
         "searchPlaceHolder": "search..",
@@ -13,29 +13,52 @@ export function start(treeContainerId: string, tree: Node[], config: ShowTreeCon
     let rootContainer = document.getElementById(treeContainerId);
     rootContainer.classList.add("show-tree-container");
 
-    //  Add the input filed
+    //  Add the search container
     //#region 
+    let searchContainer = document.createElement("DIV") as HTMLDivElement;
+    searchContainer.classList.add("search-container");
+
+    //  The input element
     let searchInpt = document.createElement("INPUT") as HTMLInputElement;
     searchInpt.type = "text";
     searchInpt.placeholder = config.searchPlaceHolder;
-    searchInpt.classList.add("search");
     searchInpt.addEventListener("input", debounce((event: Event) => {
         let keyword = (event.srcElement as HTMLInputElement).value;
 
         //  Get the tree container
-        let currentTreeContainer = event.srcElement.parentElement.querySelector(
+        let currentTreeContainer = event.srcElement.parentElement.parentElement.querySelector(
             ".tree-container");
         currentTreeContainer.innerHTML = "";
 
         //  Get new copy for the filtered tree from the original copy
         let newCopy = JSON.parse(JSON.stringify(tree));
-        let filteredTree = filterTree(newCopy, keyword).Tree;
-        showNodes(filteredTree, currentTreeContainer as HTMLElement);
+        let filteredTreeResult = filterTree(newCopy, keyword);
+        showNodes(filteredTreeResult.Tree, currentTreeContainer as HTMLElement);
+
+        if (keyword) {
+            foundMatchesTag.innerHTML = filteredTreeResult.FoundMatchesCount.toString()
+            + " match(es)";
+            foundMatchesTag.style.display = "inline-block";
+        }
+        else
+        {
+            foundMatchesTag.innerHTML = "";
+            foundMatchesTag.style.display = "none";
+        }
+
     }, 0));
-    rootContainer.appendChild(searchInpt);
+    searchContainer.appendChild(searchInpt);
+
+    //  Add the founch-matches tag
+    let foundMatchesTag = document.createElement("SPAN") as HTMLSpanElement;
+    foundMatchesTag.innerHTML = "test";
+    foundMatchesTag.classList.add("found-matches");
+
+    searchContainer.appendChild(foundMatchesTag);
+    rootContainer.appendChild(searchContainer);
     //#endregion
 
-    //  Creating the tre container
+    //  Creating the tree container
     //#region 
     let treeContainer = document.createElement("DIV");
     treeContainer.classList.add("tree-container");
@@ -58,8 +81,7 @@ export function start(treeContainerId: string, tree: Node[], config: ShowTreeCon
             let headDiv = document.createElement("div");
             headDiv.classList.add("head");
             headDiv.classList.add("chevron");
-            if(node.KeywordMatch)
-            {
+            if (node.KeywordMatch) {
                 headDiv.classList.add("keyword-match");
             }
             //  Show chevron only if node has children
@@ -87,7 +109,7 @@ export function start(treeContainerId: string, tree: Node[], config: ShowTreeCon
             if (node.IsOpen) {
                 bodyDiv.classList.add("open");
                 bodyDiv.parentElement.querySelector(".head")
-                .classList.add("chevron-down")
+                    .classList.add("chevron-down")
             }
 
             if (node.Children) {
@@ -158,11 +180,11 @@ function filterTree(tree: Node[], keyword: string): FilterTreeResult {
 
 function debounce(func: (...mainArgs: any[]) => any, wait: number = 200) {
     let timeout: number;
-    return function(...args: any[]) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        func.apply(this, args);
-      }, wait);
+    return function (...args: any[]) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(this, args);
+        }, wait);
     };
-  }
+}
 

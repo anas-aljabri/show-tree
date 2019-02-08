@@ -1,18 +1,20 @@
 {
   "name": "show-tree",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "show-tree is an easy to use javascript library to show multi-level data structure. It comes with an interactive search facility.",
+  "main": "show-tree.js",
+  "keywords": [
+    "tree",
+    "search",
+    "javascript",
+    "show",
+    "view",
+    "multi-level",
+    "data"
+  ],
   "author": "Anas Aljabri",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^4.0.0",
-    "gulp-less": "^4.0.1",
-    "gulp-sass": "^4.0.2",
-    "gulp-typescript": "^5.0.0",
     "less": "^3.9.0",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
