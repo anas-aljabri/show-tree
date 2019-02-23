@@ -14,12 +14,16 @@ module.exports = {
       // all files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'
       {
         test: /\.ts?$/,
-        loader: "ts-loader"
+        loader: "ts-loader",
+        exclude: /node_modules/
       },
       {
         test:/\.(s*)css$/,
         use:['style-loader','css-loader', 'sass-loader']
       }
     ]
-  }
+  },
+  resolve: {
+    extensions: [ '.tsx', '.ts', '.js' ]
+  } 
 }

@@ -1,5 +1,5 @@
-export interface ShowTreeConfig {
-    showSearch?: boolean;
-    searchPlaceHolder?: string;
-    searchDebounceTime?: number;
+export declare class ShowTreeConfig {
+    showSearch: boolean;
+    searchPlaceHolder: string;
+    searchDebounceTime: number;
 }

@@ -1,5 +1,5 @@
 import { Node } from './node';
-import { ShowTreeConfig } from './show-tree-config.js';
+import { ShowTreeConfig } from './show-tree-config';
 import './styles/styles.scss';
 import { FilterTreeResult } from './filter-tree-result';
 
@@ -10,52 +10,56 @@ export function start(treeContainerId: string, tree: Node[], config: ShowTreeCon
         "searchPlaceHolder": "search..",
         "showSearch": true
     }) {
+    //  Set the default values for config properties (if not provided)
+    setDefaultConfigValues(config);
+
     let rootContainer = document.getElementById(treeContainerId);
     rootContainer.classList.add("show-tree-container");
 
     //  Add the search container
     //#region 
-    let searchContainer = document.createElement("DIV") as HTMLDivElement;
-    searchContainer.classList.add("search-container");
+    if (config.showSearch) {
+        let searchContainer = document.createElement("DIV") as HTMLDivElement;
+        searchContainer.classList.add("search-container");
 
-    //  The input element
-    let searchInpt = document.createElement("INPUT") as HTMLInputElement;
-    searchInpt.type = "text";
-    searchInpt.placeholder = config.searchPlaceHolder;
-    searchInpt.addEventListener("input", debounce((event: Event) => {
-        let keyword = (event.srcElement as HTMLInputElement).value;
+        //  The input element
+        let searchInpt = document.createElement("INPUT") as HTMLInputElement;
+        searchInpt.type = "text";
+        searchInpt.placeholder = config.searchPlaceHolder;
+        searchInpt.addEventListener("input", debounce((event: Event) => {
+            let keyword = (event.srcElement as HTMLInputElement).value;
 
-        //  Get the tree container
-        let currentTreeContainer = event.srcElement.parentElement.parentElement.querySelector(
-            ".tree-container");
-        currentTreeContainer.innerHTML = "";
+            //  Get the tree container
+            let currentTreeContainer = event.srcElement.parentElement.parentElement.querySelector(
+                ".tree-container");
+            currentTreeContainer.innerHTML = "";
 
-        //  Get new copy for the filtered tree from the original copy
-        let newCopy = JSON.parse(JSON.stringify(tree));
-        let filteredTreeResult = filterTree(newCopy, keyword);
-        showNodes(filteredTreeResult.Tree, currentTreeContainer as HTMLElement);
+            //  Get new copy for the filtered tree from the original copy
+            let newCopy = JSON.parse(JSON.stringify(tree));
+            let filteredTreeResult = filterTree(newCopy, keyword);
+            showNodes(filteredTreeResult.Tree, currentTreeContainer as HTMLElement);
 
-        if (keyword) {
-            foundMatchesTag.innerHTML = filteredTreeResult.FoundMatchesCount.toString()
-            + " match(es)";
-            foundMatchesTag.style.display = "inline-block";
-        }
-        else
-        {
-            foundMatchesTag.innerHTML = "";
-            foundMatchesTag.style.display = "none";
-        }
+            if (keyword) {
+                foundMatchesTag.innerHTML = filteredTreeResult.FoundMatchesCount.toString()
+                    + " match(es)";
+                foundMatchesTag.style.display = "inline-block";
+            }
+            else {
+                foundMatchesTag.innerHTML = "";
+                foundMatchesTag.style.display = "none";
+            }
 
-    }, 0));
-    searchContainer.appendChild(searchInpt);
+        }, config.searchDebounceTime));
+        searchContainer.appendChild(searchInpt);
 
-    //  Add the founch-matches tag
-    let foundMatchesTag = document.createElement("SPAN") as HTMLSpanElement;
-    foundMatchesTag.innerHTML = "test";
-    foundMatchesTag.classList.add("found-matches");
+        //  Add the founch-matches tag
+        let foundMatchesTag = document.createElement("SPAN") as HTMLSpanElement;
+        foundMatchesTag.innerHTML = "test";
+        foundMatchesTag.classList.add("found-matches");
 
-    searchContainer.appendChild(foundMatchesTag);
-    rootContainer.appendChild(searchContainer);
+        searchContainer.appendChild(foundMatchesTag);
+        rootContainer.appendChild(searchContainer);
+    }
     //#endregion
 
     //  Creating the tree container
@@ -186,5 +190,14 @@ function debounce(func: (...mainArgs: any[]) => any, wait: number = 200) {
             func.apply(this, args);
         }, wait);
     };
+}
+
+function setDefaultConfigValues(config: ShowTreeConfig) {
+    if (!config.searchDebounceTime)
+        config.searchDebounceTime = 200;
+    if (!config.searchPlaceHolder)
+        config.searchPlaceHolder = "search..";
+    if (config.showSearch == null)
+        config.showSearch = true;
 }
 
