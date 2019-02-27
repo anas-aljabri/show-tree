@@ -1,4 +1,5 @@
 <head>
+    <link rel="stylesheet" href="github.min.css">
     <!-- Data -->
     <script>
         let data = [{
@@ -4671,6 +4672,10 @@
     <!-- show-tree lib -->
     <script src="../show-tree.js"></script>
     <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
         #treeContainer {
             overflow: auto;
             height: 29rem;
@@ -4678,15 +4683,73 @@
             border-radius: .35rem;
             background-color: #fff;
             padding: .5rem;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
     </style>
 </head>
 
 <body>
+    <script>
+        showTree.start('treeContainer', data, { searchDebounceTime: 5 });
+    </script>
+    <h3>show-tree Demo Example</h3>
+    <hr>
+    <p><em>The data used in the demo is taken from the Morrisons website category menu.</em></p>
     <div id="treeContainer">
     </div>
+    <h4>Code</h4>
+    <pre class="hljs language-html"><code><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Data --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
+            <span class="hljs-keyword">let</span> data = [{
+            <span class="hljs-string">"Id"</span>: <span class="hljs-number">104268</span>,
+            <span class="hljs-string">"Name"</span>: <span class="hljs-string">"Fresh"</span>,
+            <span class="hljs-string">"Children"</span>: [
+                {
+                    <span class="hljs-string">"Id"</span>: <span class="hljs-number">113925</span>,
+                    <span class="hljs-string">"Name"</span>: <span class="hljs-string">"Vegetables"</span>,
+                    <span class="hljs-string">"Children"</span>: [
+                        {
+                            <span class="hljs-string">"Id"</span>: <span class="hljs-number">113955</span>,
+                            <span class="hljs-string">"Name"</span>: <span class="hljs-string">"Potatoes"</span>
+                        },
+                        {
+                            <span class="hljs-string">"Id"</span>: <span class="hljs-number">113964</span>,
+                            <span class="hljs-string">"Name"</span>: <span class="hljs-string">"Onions, Leeks &amp; Garlic"</span>
+                        }
+                    ]
+                }]},
+                {
+                    <span class="hljs-string">"Id"</span>: <span class="hljs-number">22594</span>,
+                    <span class="hljs-string">"Name"</span>: <span class="hljs-string">"Fruit"</span>
+                }
+            ]
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    
+        <span class="hljs-comment">&lt;!-- show-tree lib --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../show-tree.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+            <span class="hljs-selector-id">#treeContainer</span> {
+                <span class="hljs-attribute">overflow</span>: auto;
+                <span class="hljs-attribute">height</span>: <span class="hljs-number">29rem</span>;
+                <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid silver;
+                <span class="hljs-attribute">border-radius</span>: .<span class="hljs-number">35rem</span>;
+                <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+                <span class="hljs-attribute">padding</span>: .<span class="hljs-number">5rem</span>;
+                <span class="hljs-attribute">font-family</span>: Verdana, Geneva, Tahoma, sans-serif;
+            }
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"treeContainer"</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+            showTree.start(<span class="hljs-string">'treeContainer'</span>, data
+            , {searchDebounceTime: <span class="hljs-number">5</span>});
+        </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+    </code></pre>
     <script>
-        showTree.start('treeContainer', data, {searchDebounceTime: 5});
+        showTree.start('treeContainer', data, { searchDebounceTime: 5 });
     </script>
 </body>
