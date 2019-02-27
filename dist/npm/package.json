@@ -1,6 +1,6 @@
 {
   "name": "show-tree",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "show-tree is an easy to use javascript library to show multi-level data structure. It comes with an interactive search facility.",
   "main": "show-tree.js",
   "keywords": [
